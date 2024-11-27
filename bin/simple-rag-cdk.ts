@@ -14,5 +14,6 @@ const openSearchStack = new OpensearchBedrockRagCdkStack(app, 'OpensearchBedrock
 new EcsFargateCdkStack(app, 'EcsFargateCdkStack', {
   OpenSearchEndpoint: openSearchStack.OpenSearchEndpoint,
   VectorFieldName: openSearchStack.VectorFieldName,
-  VectorIndexName: openSearchStack.VectorIndexName
+  VectorIndexName: openSearchStack.VectorIndexName,
+  ecrRepositoryName: 'bedrock-ecs-repository'
 });

@@ -4,6 +4,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as ecs from 'aws-cdk-lib/aws-ecs';
 import * as ecs_patterns from 'aws-cdk-lib/aws-ecs-patterns';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
+import * as ecr from 'aws-cdk-lib/aws-ecr';
 import * as logs from 'aws-cdk-lib/aws-logs';
 import { DockerImageAsset, Platform } from 'aws-cdk-lib/aws-ecr-assets';
 
@@ -11,6 +12,7 @@ interface ClusterProps extends cdk.StackProps {
   OpenSearchEndpoint: string,
   VectorIndexName: string,
   VectorFieldName: string,
+  ecrRepositoryName: string,
 }
 
 export class EcsFargateCdkStack extends cdk.Stack {
@@ -34,6 +36,12 @@ export class EcsFargateCdkStack extends cdk.Stack {
       ],
     });
 
+    const repository = ecr.Repository.fromRepositoryName(
+      this,
+      'MyRepository',
+      props.ecrRepositoryName
+    );
+
     // Create an ECS Cluster named "bedrock-ecs-cluster"
     const cluster = new ecs.Cluster(this, 'MyEcsCluster', {
       vpc,
@@ -42,18 +50,23 @@ export class EcsFargateCdkStack extends cdk.Stack {
 
 
     // Build and push Docker image to ECR
-    const appImageAsset = new DockerImageAsset(this, 'MyStreamlitAppImage', {
-      directory: './lib/docker',
-      platform: Platform.LINUX_ARM64, // Specify the x86 architecture
-
-    });
+    // const appImageAsset = new DockerImageAsset(this, 'MyStreamlitAppImage', {
+    //   directory: './lib/docker',
+    //   platform: Platform.LINUX_ARM64, // Specify the x86 architecture
+    //   // repositor
+    // });
 
     // Create a new Fargate service with the image from ECR and specify the service name
     const appService = new ecs_patterns.ApplicationLoadBalancedFargateService(this, 'MyFargateService', {
       cluster,
       serviceName: 'ecs-bedrock-service',
+      runtimePlatform: {
+        cpuArchitecture: ecs.CpuArchitecture.ARM64,
+        operatingSystemFamily: ecs.OperatingSystemFamily.LINUX,
+      },
       taskImageOptions: {
-        image: ecs.ContainerImage.fromDockerImageAsset(appImageAsset),
+        // image: ecs.ContainerImage.fromDockerImageAsset(appImageAsset),
+        image: ecs.ContainerImage.fromEcrRepository(repository, 'latest'),
         containerPort: 8501,
         environment: {
           'opensearch_host': props.OpenSearchEndpoint,
@@ -100,7 +113,10 @@ export class EcsFargateCdkStack extends cdk.Stack {
     appService.taskDefinition.taskRole?.attachInlinePolicy(bedrock_iam)
 
     // Grant ECR repository permissions for the task execution role
-    appImageAsset.repository.grantPullPush(appService.taskDefinition.executionRole!);
+    // appImageAsset.repository.grantPullPush(appService.taskDefinition.executionRole!);
+
+    // Grant ECR repository permissions for the task execution role
+    repository.grantPull(appService.taskDefinition.executionRole!);
 
     // Grant permissions for CloudWatch Logs
     const logGroup = new logs.LogGroup(this, 'MyLogGroup', {

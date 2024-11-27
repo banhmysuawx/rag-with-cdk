@@ -2,7 +2,9 @@ import streamlit as st
 from query_against_openSearch import answer_query
 
 # Header/Title of streamlit app
-st.title(f""":blue[RAG with Amazon OpenSearch Serverless Vector Search : MLA-C01 Certification Preparation]""")
+st.title(
+    f""":blue[RAG with Amazon OpenSearch Serverless Vector Search : MLA-C01 Certification Preparation]"""
+)
 
 # configuring values for session state
 if "messages" not in st.session_state:
@@ -14,13 +16,14 @@ for message in st.session_state.messages:
 # adding some special effects from the UI perspective
 st.snow()
 # evaluating st.chat_input and determining if a question has been input
-if question := st.chat_input("Simply ask me about any TOPIC from MLA-C01 Certification and I will generate questions..."):
+if question := st.chat_input(
+    "Simply ask me about any TOPIC from MLA-C01 Certification and I will generate questions..."
+):
     # with the user icon, write the question to the front end
     with st.chat_message("user"):
         st.markdown(question)
     # append the question and the role (user) as a message to the session state
-    st.session_state.messages.append({"role": "user",
-                                      "content": question})
+    st.session_state.messages.append({"role": "user", "content": question})
     # respond as the assistant with the answer
     with st.chat_message("assistant"):
         # making sure there are no messages present when generating the answer
@@ -34,5 +37,4 @@ if question := st.chat_input("Simply ask me about any TOPIC from MLA-C01 Certifi
             # showing a completion message to the front end
             status.update(label="MCQ Generated...", state="complete", expanded=False)
     # appending the results to the session state
-    st.session_state.messages.append({"role": "assistant",
-                                      "content": answer})
+    st.session_state.messages.append({"role": "assistant", "content": answer})
