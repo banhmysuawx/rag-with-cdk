@@ -5,14 +5,21 @@ import * as cr from 'aws-cdk-lib/custom-resources';
 import * as opensearchserverless from 'aws-cdk-lib/aws-opensearchserverless';
 import * as path from 'path';
 import * as cdk from 'aws-cdk-lib';
+import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as fs from 'fs';
+
+interface OpensearchBedrockRagCdkStackProps extends cdk.StackProps {
+  vpc: ec2.Vpc
+  environment: string
+  projectName: string
+}
 
 export class OpensearchBedrockRagCdkStack extends cdk.Stack {
   OpenSearchEndpoint: string
   VectorIndexName: string
   VectorFieldName: string
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: OpensearchBedrockRagCdkStackProps) {
     super(scope, id, props);
 
     // Define the IAM role
@@ -28,8 +35,8 @@ export class OpensearchBedrockRagCdkStack extends cdk.Stack {
       value: role.roleArn
     });
 
-    const CollectionName = 'rag-collection'
-    const vectorIndexName = 'rag-vector-index'
+    const CollectionName = `${props?.projectName}-collection`
+    const vectorIndexName = `${CollectionName}-index`
 
 
     // const secConfig = new opensearchserverless.CfnSecurityConfig(this, 'OpenSearchServerlessSecurityConfig', {
@@ -142,7 +149,6 @@ export class OpensearchBedrockRagCdkStack extends cdk.Stack {
             `arn:aws:iam::${this.account}:root`,
             //`arn:aws:iam::${this.account}:role/CreateIndex-LambdaRole`,
             createIndexLambda.role?.roleArn,
-            `saml/${this.account}/${CollectionName}-config/user/vivek`
           ],
         },
       ]),
@@ -170,6 +176,7 @@ export class OpensearchBedrockRagCdkStack extends cdk.Stack {
             RequestType: 'Create',
             CollectionName: collection.name,
             IndexName: vectorIndexName,
+            VectorDimension: 1536,
             Endpoint: Endpoint,
           }),
         },
@@ -198,9 +205,95 @@ export class OpensearchBedrockRagCdkStack extends cdk.Stack {
       timeout: cdk.Duration.minutes(5),
     });
 
+    const geminiVectorIndex = new cr.AwsCustomResource(this, 'GeminiVectorIndexResource', {
+      installLatestAwsSdk: true,
+      onCreate: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: createIndexLambda.functionName,
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify({
+            RequestType: 'Create',
+            CollectionName: collection.name,
+            IndexName: 'aoss-index',
+            VectorDimension: 768,
+            Endpoint: Endpoint,
+          }),
+        },
+        physicalResourceId: cr.PhysicalResourceId.of('gemini-vector-index'),
+      },
+      onDelete: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: createIndexLambda.functionName,
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify({
+            RequestType: 'Delete',
+            CollectionName: collection.name,
+            IndexName: 'aoss-index',
+            Endpoint: Endpoint,
+          }),
+        },
+      },
+      policy: cr.AwsCustomResourcePolicy.fromStatements([
+        new iam.PolicyStatement({
+          actions: ['lambda:InvokeFunction'],
+          resources: [createIndexLambda.functionArn],
+        }),
+      ]),
+    });
+
+    const claudeVectorIndex = new cr.AwsCustomResource(this, 'claudeVectorIndexResource', {
+      installLatestAwsSdk: true,
+      onCreate: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: createIndexLambda.functionName,
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify({
+            RequestType: 'Create',
+            CollectionName: collection.name,
+            IndexName: 'claude-embedding-index',
+            VectorDimension: 1024,
+            Endpoint: Endpoint,
+          }),
+        },
+        physicalResourceId: cr.PhysicalResourceId.of('claude-vector-index'),
+      },
+      onDelete: {
+        service: 'Lambda',
+        action: 'invoke',
+        parameters: {
+          FunctionName: createIndexLambda.functionName,
+          InvocationType: 'RequestResponse',
+          Payload: JSON.stringify({
+            RequestType: 'Delete',
+            CollectionName: collection.name,
+            IndexName: 'claude-embedding-index',
+            Endpoint: Endpoint,
+          }),
+        },
+      },
+      policy: cr.AwsCustomResourcePolicy.fromStatements([
+        new iam.PolicyStatement({
+          actions: ['lambda:InvokeFunction'],
+          resources: [createIndexLambda.functionArn],
+        }),
+      ]),
+    });
+
     // Ensure vectorIndex depends on collection
     vectorIndex.node.addDependency(collection);
     vectorIndex.node.addDependency(createIndexLambda);
+
+    geminiVectorIndex.node.addDependency(collection);
+    geminiVectorIndex.node.addDependency(createIndexLambda);
+
+    claudeVectorIndex.node.addDependency(collection);
+    claudeVectorIndex.node.addDependency(createIndexLambda);
 
     this.OpenSearchEndpoint = Endpoint
     this.VectorIndexName = vectorIndexName

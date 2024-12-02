@@ -1,0 +1,725 @@
+digraph "Diagram" {
+  splines = "ortho";
+  pad = "1.0";
+  nodesep = "0.60";
+  ranksep = "0.75";
+  fontname = "Sans-Serif";
+  fontsize = "15";
+  dpi = "200";
+  rankdir = "BT";
+  compound = "true";
+  fontcolor = "#222222";
+  edge [
+    color = "#D5871488",
+    penwidth = 2,
+    arrowhead = "dot",
+    arrowtail = "dot",
+  ];
+  node [
+    shape = "box",
+    style = "rounded",
+    fixedsize = true,
+    width = 1.7,
+    height = 1.7,
+    labelloc = "c",
+    imagescale = true,
+    fontname = "Sans-Serif",
+    fontsize = 8,
+    margin = 8,
+  ];
+  subgraph "App" {
+    subgraph "cluster-SubGraph.App" {
+      graph [
+        label = "App",
+        labelloc = "b",
+        labeljust = "l",
+        margin = "10",
+        fontsize = "16",
+        penwidth = "2",
+        pencolor = "#888888",
+        style = "filled,rounded",
+        fillcolor = "#f3f3f3",
+      ];
+      subgraph "cluster-SubGraph.BaseStack" {
+        graph [
+          label = "BaseStack",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#e4e4e4",
+        ];
+        "BaseStack/SharedVpc" [
+          label = " SharedVpc",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Networking-Content/64/Arch_Amazon-Virtual-Private-Cloud_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "BaseStack/BastionSecurityGroup" [
+          label = " BastionSecurityGroup",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/security_group.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "BaseStack/BastionHost" [
+          label = " BastionHost",
+          fontsize = 12,
+        ];
+      }
+      subgraph "cluster-SubGraph.OpensearchBedrockRagCdkStack" {
+        graph [
+          label = "OpensearchBedrockRagCdkStack",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#e4e4e4",
+        ];
+        "OpensearchBedrockRagCdkStack/OpenSearchServerlessAccessRole" [
+          label = "\nOpenSearchServerlessA",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.682,
+        ];
+        "OpensearchBedrockRagCdkStack/EncryptionPolicy" [
+          label = " OPENSEARCHSERVERLESS\nSECURITYPOLICY\nEncryptionPolicy",
+          fontsize = 12,
+        ];
+        "OpensearchBedrockRagCdkStack/NetworkPolicy" [
+          label = " OPENSEARCHSERVERLESS\nSECURITYPOLICY\nNetworkPolicy",
+          fontsize = 12,
+        ];
+        "OpensearchBedrockRagCdkStack/OpenSearchCollection" [
+          label = " OPENSEARCHSERVERLESS\nCOLLECTION\nOpenSearchCollection",
+          fontsize = 12,
+        ];
+        "OpensearchBedrockRagCdkStack/CreateIndexLambdaRole" [
+          label = "\nCreateIndexLambdaRole",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.682,
+        ];
+        "OpensearchBedrockRagCdkStack/CreateIndexLambda" [
+          label = " CreateIndexLambda",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_AWS-Lambda_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "OpensearchBedrockRagCdkStack/DataAccessPolicy" [
+          label = " OPENSEARCHSERVERLESS\nACCESSPOLICY\nDataAccessPolicy",
+          fontsize = 12,
+        ];
+        "OpensearchBedrockRagCdkStack/vectorIndexResource" [
+          label = " vectorIndexResource",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Management-Governance/64/Arch_AWS-CloudFormation_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "OpensearchBedrockRagCdkStack/AWS679f53fac002430cb0da5b7982bd2287" [
+          label = "\nAWS679f53fac002430cb0",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_AWS-Lambda_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.4819999999999998,
+        ];
+        "OpensearchBedrockRagCdkStack/GeminiVectorIndexResource" [
+          label = "\nGeminiVectorIndexReso",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Management-Governance/64/Arch_AWS-CloudFormation_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.682,
+        ];
+        "OpensearchBedrockRagCdkStack/claudeVectorIndexResource" [
+          label = "\nclaudeVectorIndexReso",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Management-Governance/64/Arch_AWS-CloudFormation_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.682,
+        ];
+      }
+      subgraph "cluster-SubGraph.StorageStack" {
+        graph [
+          label = "StorageStack",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#e4e4e4",
+        ];
+        "StorageStack/MyDataBucket" [
+          label = " MyDataBucket",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Storage/64/Arch_Amazon-S3-Standard_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "StorageStack/DBCredentialsSecret" [
+          label = " DBCredentialsSecret",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Secrets-Manager_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "StorageStack/DatabaseSecurityGroup" [
+          label = "\nDatabaseSecurityGroup",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/security_group.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.4819999999999998,
+        ];
+        "StorageStack/MyDatabase" [
+          label = " MyDatabase",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Resource/Res_Compute/Res_48_Dark/Res_Amazon-EC2_T3-Instance_48_Dark.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "StorageStack/MyTable" [
+          label = " MyTable",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Database/64/Arch_Amazon-DynamoDB_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+      }
+      subgraph "cluster-SubGraph.EcsFargateCdkStack" {
+        graph [
+          label = "EcsFargateCdkStack",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#e4e4e4",
+        ];
+        "EcsFargateCdkStack/MyEcsCluster" [
+          label = " MyEcsCluster",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_Amazon-Elastic-Container-Service_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "EcsFargateCdkStack/BedrockPermissionsPolicy" [
+          label = "\nBedrockPermissionsPol",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Security-Identity-Compliance/64/Arch_AWS-Identity-and-Access-Management_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.682,
+        ];
+        "EcsFargateCdkStack/StreamLitCloudFrontDistribution" [
+          label = "\nStreamLitCloudFrontDi",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Networking-Content/64/Arch_Amazon-CloudFront_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.4819999999999998,
+        ];
+        "EcsFargateCdkStack/MyLogGroup" [
+          label = " MyLogGroup",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Resource/Res_Management-Governance/Res_48_Dark/Res_Amazon-Cloudwatch_Logs_48_Dark_gen.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        subgraph "cluster-SubGraph.MyFargateService" {
+          graph [
+            label = "MyFargateService",
+            labelloc = "b",
+            labeljust = "l",
+            margin = "10",
+            fontsize = "16",
+            penwidth = "2",
+            pencolor = "#888888",
+            style = "filled,rounded",
+            fillcolor = "#d6d6d6",
+          ];
+          "EcsFargateCdkStack/MyFargateService/LB" [
+            label = " LB",
+            fontsize = 12,
+            image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Networking-Content/64/Arch_Elastic-Load-Balancing_64@5x.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.266,
+          ];
+          "EcsFargateCdkStack/MyFargateService/TaskDef" [
+            label = " TaskDef",
+            fontsize = 12,
+            image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Resource/Res_Containers/Res_48_Dark/Res_Amazon-Elastic-Container-Service_Task_48_Dark_gen.png",
+            imagescale = "true",
+            imagepos = "tc",
+            penwidth = "0",
+            shape = "node",
+            fixedsize = "true",
+            labelloc = "b",
+            width = 2,
+            height = 2.266,
+          ];
+          subgraph "cluster-SubGraph.Service" {
+            graph [
+              label = "Service",
+              labelloc = "b",
+              labeljust = "l",
+              margin = "10",
+              fontsize = "16",
+              penwidth = "2",
+              pencolor = "#888888",
+              style = "filled,rounded",
+              fillcolor = "#c7c7c7",
+            ];
+            "EcsFargateCdkStack/MyFargateService/Service/Service" [
+              label = " ECS Service Service",
+              fontsize = 12,
+              image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Resource/Res_Containers/Res_48_Dark/Res_Amazon-Elastic-Container-Service_Service_48_Dark_gen.png",
+              imagescale = "true",
+              imagepos = "tc",
+              penwidth = "0",
+              shape = "node",
+              fixedsize = "true",
+              labelloc = "b",
+              width = 2,
+              height = 2.266,
+            ];
+            "EcsFargateCdkStack/MyFargateService/Service/SecurityGroup" [
+              label = " SecurityGroup",
+              fontsize = 12,
+              image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/security_group.png",
+              imagescale = "true",
+              imagepos = "tc",
+              penwidth = "0",
+              shape = "node",
+              fixedsize = "true",
+              labelloc = "b",
+              width = 2,
+              height = 2.266,
+            ];
+            "EcsFargateCdkStack/MyFargateService/Service/TaskCount/Target" [
+              label = " Target",
+              fontsize = 12,
+            ];
+          }
+        }
+      }
+      subgraph "cluster-SubGraph.IngestStack" {
+        graph [
+          label = "IngestStack",
+          labelloc = "b",
+          labeljust = "l",
+          margin = "10",
+          fontsize = "16",
+          penwidth = "2",
+          pencolor = "#888888",
+          style = "filled,rounded",
+          fillcolor = "#e4e4e4",
+        ];
+        "IngestStack/DeadLetterQueue" [
+          label = " DeadLetterQueue",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_App-Integration/Arch_64/Arch_AWS-Simple-Queue-Service_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "IngestStack/IngestionQueue" [
+          label = " IngestionQueue",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_App-Integration/Arch_64/Arch_AWS-Simple-Queue-Service_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "IngestStack/EfsSecurityGroup" [
+          label = " EfsSecurityGroup",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/security_group.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "IngestStack/EfsFileSystem" [
+          label = " EfsFileSystem",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Storage/64/Arch_Amazon-Elastic-File-System_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+        "IngestStack/MetadataProcessorSG" [
+          label = " MetadataProcessorSG",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/security_group.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "IngestStack/MetadataProcessorLambda" [
+          label = "\nMetadataProcessorLamb",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_AWS-Lambda_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.4819999999999998,
+        ];
+        "IngestStack/IngestionProcessorSG" [
+          label = " IngestionProcessorSG",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/security_group.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.266,
+        ];
+        "IngestStack/IngestionProcessorLambda" [
+          label = "\nIngestionProcessorLam",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_Compute/64/Arch_AWS-Lambda_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 2,
+          height = 2.4819999999999998,
+        ];
+        "IngestStack/MonthlyTriggerRule" [
+          label = " MonthlyTriggerRule",
+          fontsize = 12,
+          image = "/Users/nals_macbook_307/.nvm/versions/node/v20.17.0/lib/node_modules/cdk-dia/icons/aws/Service/Arch_App-Integration/Arch_64/Arch_Amazon-EventBridge_64@5x.png",
+          imagescale = "true",
+          imagepos = "tc",
+          penwidth = "0",
+          shape = "node",
+          fixedsize = "true",
+          labelloc = "b",
+          width = 1.2,
+          height = 1.466,
+        ];
+      }
+    }
+  }
+  "BaseStack/BastionSecurityGroup" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "BaseStack/BastionHost" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/CreateIndexLambda" -> "OpensearchBedrockRagCdkStack/CreateIndexLambdaRole" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/DataAccessPolicy" -> "OpensearchBedrockRagCdkStack/OpenSearchServerlessAccessRole" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/DataAccessPolicy" -> "OpensearchBedrockRagCdkStack/CreateIndexLambdaRole" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/vectorIndexResource" -> "OpensearchBedrockRagCdkStack/CreateIndexLambda" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/vectorIndexResource" -> "OpensearchBedrockRagCdkStack/AWS679f53fac002430cb0da5b7982bd2287" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/GeminiVectorIndexResource" -> "OpensearchBedrockRagCdkStack/CreateIndexLambda" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/GeminiVectorIndexResource" -> "OpensearchBedrockRagCdkStack/AWS679f53fac002430cb0da5b7982bd2287" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/claudeVectorIndexResource" -> "OpensearchBedrockRagCdkStack/CreateIndexLambda" [
+    dir = "both",
+  ];
+  "OpensearchBedrockRagCdkStack/claudeVectorIndexResource" -> "OpensearchBedrockRagCdkStack/AWS679f53fac002430cb0da5b7982bd2287" [
+    dir = "both",
+  ];
+  "StorageStack/DBCredentialsSecret" -> "StorageStack/MyDatabase" [
+    dir = "both",
+  ];
+  "StorageStack/DatabaseSecurityGroup" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "StorageStack/MyDatabase" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "StorageStack/MyDatabase" -> "StorageStack/DBCredentialsSecret" [
+    dir = "both",
+  ];
+  "StorageStack/MyDatabase" -> "StorageStack/DatabaseSecurityGroup" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/LB" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/LB" -> "EcsFargateCdkStack/MyFargateService/Service/SecurityGroup" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/TaskDef" -> "OpensearchBedrockRagCdkStack/OpenSearchCollection" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/TaskDef" -> "StorageStack/MyDataBucket" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/TaskDef" -> "StorageStack/DBCredentialsSecret" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/TaskDef" -> "StorageStack/MyDatabase" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/TaskDef" -> "StorageStack/MyTable" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/TaskDef" -> "EcsFargateCdkStack/MyLogGroup" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/Service" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/Service" -> "EcsFargateCdkStack/MyEcsCluster" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/Service" -> "EcsFargateCdkStack/MyFargateService/LB" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/Service" -> "EcsFargateCdkStack/MyFargateService/TaskDef" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/Service" -> "EcsFargateCdkStack/MyFargateService/Service/SecurityGroup" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/SecurityGroup" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/SecurityGroup" -> "EcsFargateCdkStack/MyFargateService/LB" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/TaskCount/Target" -> "EcsFargateCdkStack/MyFargateService/Service/Service" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/MyFargateService/Service/TaskCount/Target" -> "EcsFargateCdkStack/MyEcsCluster" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/BedrockPermissionsPolicy" -> "EcsFargateCdkStack/MyFargateService/TaskDef" [
+    dir = "both",
+  ];
+  "EcsFargateCdkStack/StreamLitCloudFrontDistribution" -> "EcsFargateCdkStack/MyFargateService/LB" [
+    dir = "both",
+  ];
+  "IngestStack/IngestionQueue" -> "IngestStack/DeadLetterQueue" [
+    dir = "both",
+  ];
+  "IngestStack/EfsSecurityGroup" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "IngestStack/EfsSecurityGroup" -> "BaseStack/BastionHost" [
+    dir = "both",
+  ];
+  "IngestStack/EfsSecurityGroup" -> "IngestStack/IngestionProcessorSG" [
+    dir = "both",
+  ];
+  "IngestStack/EfsFileSystem" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "IngestStack/EfsFileSystem" -> "IngestStack/EfsSecurityGroup" [
+    dir = "both",
+  ];
+  "IngestStack/MetadataProcessorSG" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "IngestStack/MetadataProcessorLambda" -> "StorageStack/MyDataBucket" [
+    dir = "both",
+  ];
+  "IngestStack/MetadataProcessorLambda" -> "IngestStack/IngestionQueue" [
+    dir = "both",
+  ];
+  "IngestStack/MetadataProcessorLambda" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "IngestStack/MetadataProcessorLambda" -> "IngestStack/MetadataProcessorSG" [
+    dir = "both",
+  ];
+  "IngestStack/IngestionProcessorSG" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "IngestStack/IngestionProcessorSG" -> "IngestStack/EfsSecurityGroup" [
+    dir = "both",
+  ];
+  "IngestStack/IngestionProcessorLambda" -> "StorageStack/MyDataBucket" [
+    dir = "both",
+  ];
+  "IngestStack/IngestionProcessorLambda" -> "IngestStack/EfsFileSystem" [
+    dir = "both",
+  ];
+  "IngestStack/IngestionProcessorLambda" -> "BaseStack/SharedVpc" [
+    dir = "both",
+  ];
+  "IngestStack/IngestionProcessorLambda" -> "IngestStack/IngestionQueue" [
+    dir = "both",
+  ];
+  "IngestStack/IngestionProcessorLambda" -> "IngestStack/IngestionProcessorSG" [
+    dir = "both",
+  ];
+  "IngestStack/MonthlyTriggerRule" -> "IngestStack/MetadataProcessorLambda" [
+    dir = "both",
+  ];
+}
